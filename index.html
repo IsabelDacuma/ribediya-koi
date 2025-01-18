@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ribediya KOI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'fl-icons';
+            src: local('Hiragino Kaku Gothic ProN');
+        }
+                
+    body {
+      
+        font-family: 'fl-icons';
+        display: flex;
+        min-height: 100vh;
+        background-color: #121212;
+        }
+
+      
+       
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+            width: 100%;
+        }
+    /* Sidebar Navigation */
+        .sidebar {
+            width: 200px;
+            background-size: cover; /* Ensures the image covers the sidebar */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 2px solid #ddd;
+            position: fixed;
+            height: 100%;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            top: 0;
+            color: whitesmoke; /* Ensures text is visible */
+            z-index: 1; /* Ensures sidebar content is above the overlay */
+        }
+
+
+
+        .sidebar .logo img {
+            width: 150px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: ;
+            font-size: 16px;
+            writing-mode: horizontal-tb;-rl; /* Vertical text */
+            text-orientation: mixed;
+            margin-left: 10px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: orange;
+            transform: scale(1.1);
+        }
+
+
+/* Header Section */
+.header-section {
+    padding: 20px;
+    background-color: #121212; /* Matte black */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    position: relative; /* Ensure header stays above the slider */
+    z-index: 2; /* Ensure it's above the photo slider */
+
+}
+
+/* Header Text */
+.header-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-text {
+    color: floralwhite;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.header-text.english {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.header-text.japanese {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1.3rem;
+    opacity: 0.9;
+}
+
+
+
+/* Background Slider Section */
+.bg-slider {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent images from spilling out */
+}
+
+.bg-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Hide initially */
+    transition: opacity 1s ease-in-out;
+}
+
+.bg-section:first-child {
+    opacity: 1; /* Make the first image visible initially */
+}
+
+/* Slogan Container */
+.slogan-container {
+    text-align: center;
+    margin: 0 20px;
+    position: relative;
+    z-index: 10; /* Ensure the slogan stays above the background images */
+}
+
+/* Slogan Styling */
+.slogan {
+    font-family: 'Roboto', sans-serif;
+    color: floralwhite;
+    font-size: 1.3rem;
+    letter-spacing: 0.1px;
+    display: inline-block;
+    white-space: nowrap;
+    opacity: 1;
+    animation: fadeSlogan 15s ease-in-out infinite;
+}
+
+/* Word Animations */
+.word {
+    display: inline-block;
+    opacity: 0;
+    animation: fadeInOutWords 10s ease-in-out infinite;
+    margin: 0 5px;
+}
+
+@keyframes fadeInOutWords {
+    0%, 100% {
+        opacity: 0;
+    }
+    10%, 90% {
+        opacity: 1;
+    }
+}
+
+/* Animation for the entire slogan */
+@keyframes fadeSlogan {
+    0%, 50%, 100% {
+        opacity: 0;
+    }
+    25%, 75% {
+        opacity: 1;
+    }
+}
+
+
+
+/* Search Bar */
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-bar {
+    padding: 0.5rem;
+    border-radius: 3px;
+    border: 1px solid black;
+    width: 200px;
+    outline: none;
+}
+
+.search-bar:focus {
+    border-color: orange;
+    box-shadow: 0 0 5px orange;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.2em;
+    color: #ccc; /* Lighter text for readability on black background */
+}
+
+ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+}
+
+ul li:hover {
+    background-color: #444;
+    transition: 0.3s;
+}
+
+
+
+        /* Our Story Section*/
+        /* Ensure images have the same size */
+        .grid img {
+            width: 100%; /* Make images fill the available space */
+            height: 200px; /* Set a fixed height for the images */
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+        }
+
+  
+        /* Reservation Section */
+     
+        /* Footer */
+        footer {
+            background-color: #121212; /* Dark background */
+            color: floralwhite; /* Text color */
+            text-align: center; /* Center-align content */
+            padding: 20px; /* Space inside footer */
+            width: 100%; /* Full width */
+            position: relative; /* Position for layout */
+            bottom: 0; /* Align at bottom if necessary */
+        }
+
+        /* Social Links */
+        .social-links {
+            margin-bottom: 10px; /* Spacing below social links */
+        }
+
+        .social-icon {
+            margin: 0 10px; /* Horizontal spacing */
+            color: floralwhite; /* White color for icons */
+            font-size: 20px; /* Icon size */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .social-icon:hover {
+            color: orange; /* Change color on hover */
+        }
+
+                    
+    
+
+       /* Scroll to top button */
+    .scroll-arrow {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #121212;
+      color: floralwhite;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 30px;
+      z-index: 1000;
+    }
+
+    .scroll-arrow:hover {
+      background-color: red;
+    }
+
+     /* Make sure the body has some space for the button */
+    body {
+      padding-bottom: 60px; /* To ensure the button doesn't get hidden behind the content */
+    }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar ul li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sidebar ul li a {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content h1 {
+                font-size: 20px;
+            }
+
+            .main-content p {
+                font-size: 16px;
+            }
+        }
+
+
+
+/* Reservation Section */
+#Reservation {
+    background-color: black;
+    padding: 3rem 1rem;
+}
+
+h2 {
+    color: #333;
+}
+
+/* Form Container */
+.reservation-form {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #444;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="number"],
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #555;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit Button */
+.submit-button {
+    background-color: black;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: orange;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reservation-form {
+        padding: 1.5rem;
+    }
+}
+
+
+ .grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Mobile-first */
+        gap: 1.5rem;
+    }
+
+    .grid-cols-1 {
+        grid-template-columns: 1fr;
+    }
+
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transition: transform 0.2s ease;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal img {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        color: floralwhite;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+
+    </style>
+</head>
+<body>
+
+
+ <div id="custom-cursor"></div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo2.png" alt="koi-logo"> <!-- Add your logo image here -->
+        </div>
+        <ul>
+            <li><a href="index.html#our-story">Our Story</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="index.html#Reservation">Reservation</a></li>
+            <li><a href="index.html#contact-us">Contact Us</a></li>
+        </ul>
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+
+        <!-- Header Section -->
+    <header class="header-section">
+    <!-- Company Name -->
+    <div class="header-text-container">
+        <div class="header-text english">RIBEDIYA KOI</div>
+        <div class="header-text japanese">リベディヤコイ</div>
+    </div>
+
+    
+    <!-- Slogan Section -->
+<div class="slogan-container">
+    <div class="slogan">
+        <span class="word">Savor</span>
+        <span class="word">the</span>
+        <span class="word">Spirit</span>
+        <span class="word">of</span>
+        <span class="word">Japan</span>
+        <span class="word">Down</span>
+        <span class="word">Under</span>
+    </div>
+</div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="search" class="search-bar" placeholder="Search...">
+    </div>
+</header>
+
+
+
+<!-- Background Section (Slider) -->
+<section class="bg-slider">
+    <div class="bg-section" style="background-image: url('main.jpg');"></div>
+    <div class="bg-section" style="background-image: url('main2.jpg');"></div>
+    <div class="bg-section" style="background-image: url('main3.jpg');"></div>
+    <div class="bg-section" style="background-image: url('main4.jpg');"></div>
+</section>
+
+
+
+
+
+    
+        <!-- Our Story Section -->
+<section id="our-story" class="py-20" style="background-color: #121212;">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-12">Our Story</h2>
+        <div class="max-w-3xl mx-auto text-white">
+            <p class="mb-6 text-lg leading-relaxed text-justify">
+                Welcome to Ribediya KOI, an authentic Japanese restaurant in the heart of Sydney!!
+            </p>
+            <p class="mb-6 text-lg leading-relaxed text-justify">
+                Founded by Rie, Belle, and Diya, our name combines a personal touch with the koi fish, symbolizing prosperity and good fortune in Japanese culture. At Ribediya KOI, we bring together traditional Japanese culinary expertise crafted by our world-class chefs, combined with modern elements to create a unique dining experience. 
+            </p>
+            <p class="mb-6 text-lg leading-relaxed text-justify">
+                Explore our dishes, learn about their cultural significance, make reservations, and stay updated on our latest specials. At Ribediya KOI, we bring the best of Japan to Sydney with a perfect balance of Japanese hospitality and Australian service.
+            </p>
+            <p class="mb-8 text-lg leading-relaxed text-justify">
+                <b>"Savor the Spirit of Japan Down Under."</b>
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <img src="our-story1.jpg" alt="Restaurant Bar" onclick="openModal(this.src)" class="cursor-pointer" />
+                <img src="our-story2.jpg" alt="Course Meal" onclick="openModal(this.src)" class="cursor-pointer" />
+                <img src="our-story3.jpg" alt="Kitchen" onclick="openModal(this.src)" class="cursor-pointer" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal for Enlarged Image -->
+<div id="modal" class="modal">
+    <span class="close-btn" onclick="closeModal()">X</span>
+    <img id="modal-img" src="" alt="Enlarged Image">
+</div>
+
+    <!-- Inline JavaScript -->
+<script>
+    // Function to open the modal with the clicked image
+    function openModal(imageSrc) {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        
+        // Set the source of the modal image to the clicked image's source
+        modalImg.src = imageSrc;
+
+        // Show the modal
+        modal.style.display = 'flex';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+
+  const searchBar = document.getElementById('search-bar');
+        const content = document.querySelector('.content');
+
+        // Function to highlight search term
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi'); // Case-insensitive matching
+            return text.replace(regex, '<span class="highlight">$1</span>'); // Highlight matches
+        }
+
+        // Event listener for the search bar
+        searchBar.addEventListener('input', function() {
+            const query = searchBar.value.trim();  // Get the search term
+            const paragraphs = content.querySelectorAll('p'); // Get all paragraphs
+
+            paragraphs.forEach(paragraph => {
+                const originalText = paragraph.textContent;
+                if (query) {
+                    // Highlight matches in the paragraph text
+                    paragraph.innerHTML = highlightText(originalText, query);
+                } else {
+                    // If search is empty, show the original text
+                    paragraph.innerHTML = originalText;
+                }
+            });
+        });
+
+let currentIndex = 0; /*Slider*/
+const sections = document.querySelectorAll('.bg-section');
+const totalSections = sections.length;
+
+function changeSlide() {
+    // Set all sections to opacity 0 (hide them)
+    sections.forEach(section => section.style.opacity = 0);
+    
+    // Show the next section (background image)
+    currentIndex = (currentIndex + 1) % totalSections; // Loop back to the first one after the last
+    sections[currentIndex].style.opacity = 1; // Show the next image
+}
+
+// Set the slideshow interval (e.g., 3 seconds)
+setInterval(changeSlide, 3000); // Change slide every 3 seconds
+
+/*Highlights Navigation Side Bar*/
+
+document.addEventListener("DOMContentLoaded", function () {
+        const links = document.querySelectorAll(".sidebar ul li a");
+
+        // Add click event to update active class
+        links.forEach(link => {
+            link.addEventListener("click", function () {
+                links.forEach(l => l.classList.remove("active"));
+                this.classList.add("active");
+            });
+        });
+    });
+
+
+
+</script>
+
+
+
+
+<!-- Menu Preview Section -->
+<section id="menu" class="py-20" style="background-image: url(''); background-size: cover; background-position: center; background-color: #121212;">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-12">Menu Preview</h2>
+
+        <!-- Featured Items Preview -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 max-w-6xl mx-auto mb-16">
+            
+            <!-- Group Meals -->
+<div class="menu-item bg-[#121212] rounded-lg shadow-lg p-6 relative overflow-hidden transform hover:scale-105 transition-transform duration-300">
+    <div class="absolute top-0 right-0 bg-gradient-to-r from-red-600 to-yellow-400 text-white px-6 py-2 rounded-tl-lg text-lg font-semibold">
+        Group Meals
+    </div>
+    <h3 class="text-xl font-bold mb-4 text-white">Banquet Options</h3>
+    <p class="text-white mb-4 text-justify">Perfect for larger gatherings, our group meals include a variety of dishes that bring the flavors of Japan to your table. Ideal for celebrations or family-style dining.</p>
+    <p class="text-lg font-bold text-white">Starting from $65.00</p>
+    
+    <!-- Image preview for Group Meals -->
+    <img src="menu-preview1.webp" alt="Group Meals" class="w-full mt-6 rounded-lg shadow-md" style="object-fit: cover; height: 200px;">
+</div>
+
+            <!-- Signature Meals (Featured Dishes) -->
+            <div class="menu-item bg-[#121212] rounded-lg shadow-lg p-6 relative overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                <div class="absolute top-0 right-0 bg-gradient-to-r from-red-600 to-yellow-400 text-white px-6 py-2 rounded-tl-lg text-lg font-semibold">
+                    Featured
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-white">Signature Meals</h3>
+                <p class="text-white mb-4 text-justify">Our signature meals represent the very essence of Japanese cuisine, crafted with the finest ingredients to offer an unforgettable dining experience.</p>
+                <p class="text-lg font-bold text-white">Starting from $25.00</p>
+                
+                <!-- Image preview for Signature Meals -->
+                <img src="menu-preview2.jpg" alt="Signature Meals" class="w-full mt-6 rounded-lg shadow-md" style="object-fit: cover; height: 200px;">
+            </div>
+
+            <!-- Main Dishes -->
+            <div class="menu-item bg-[#121212] rounded-lg shadow-lg p-6 relative overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                <div class="absolute top-0 right-0 bg-gradient-to-r from-red-600 to-yellow-400 text-white px-6 py-2 rounded-tl-lg text-lg font-semibold">
+                    Main Dishes
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-white">Main Course Selection</h3>
+                <p class="text-white mb-4 text-justify">Our main dishes bring a diverse range of traditional and contemporary Japanese flavors, from sushi to ramen and everything in between. Each dish is crafted with precision and care.</p>
+                <p class="text-lg font-bold text-white">Starting from $18.00</p>
+                
+                <!-- Image preview for Main Dishes -->
+                <img src="menu-preview3.png" alt="Main Dishes" class="w-full mt-6 rounded-lg shadow-md" style="object-fit: cover; height: 200px;">
+            </div>
+        </div>
+
+        <!-- View Full Menu Button -->
+        <div class="text-center mt-12">
+            <div class="bg-gradient-to-r from-gray-800 to-gray-600 p-6 rounded-lg shadow-md inline-block">
+                <p class="text-lg text-white mb-4 text-justify">Explore the full range of authentic Japanese dishes and immerse yourself in our curated dining experience.</p>
+                <a href="menu.html" class="inline-block bg-orange-500 text-black px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors duration-300 font-bold text-white">
+                    View Full Menu
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Reservation Section -->
+<section id="Reservation" class="py-20" style="background-color:#121212">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12 text-white">Reservation</h2>
+        <div class="max-w-4xl mx-auto">
+            <!-- Reservation Form with Background -->
+            <div class="bg-cover bg-center relative rounded-lg shadow-lg p-8" style="background-image: url('reservation1.jpg');">
+                <div class="reservation-form">
+                    <div class="form-container">
+                        <form action="#" method="POST" id="reservationForm">
+                            <div class="form-group">
+                                <label for="reservationDate">Date of Reservation</label>
+                                <input type="date" id="reservationDate" name="reservationDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reservationTime">Time of Reservation</label>
+                                <input type="time" id="reservationTime" name="reservationTime" min="11:00" max="22:00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="numberGuests">Number of Guests</label>
+                                <input type="number" id="numberGuests" name="numberGuests" min="1" value="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guestName">Guest Name</label>
+                                <input type="text" id="guestName" name="guestName" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guestEmail">Email Address</label>
+                                <input type="email" id="guestEmail" name="guestEmail" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guestPhone">Phone Number</label>
+                                <input type="tel" id="guestPhone" name="guestPhone" placeholder="Enter your phone number" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="submit-button">Submit Reservation</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Contact Us Section -->
+<section id="contact-us" class="py-20">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-12 text-white">Contact Us</h2>
+        <div class="flex items-stretch"> <!-- Flexbox container to stretch items equally -->
+            <!-- Left side: Contact Information -->
+            <div class="w-full md:w-1/2 max-w-2xl mx-auto flex flex-col h-full flex-grow text-white"> <!-- Added flex-grow here -->
+                <div class="bg-cover bg-center relative rounded-lg shadow-lg p-8">
+                    <dl class="space-y-6">
+                        <div class="flex">
+                            <dt class="w-1/3 font-bold">Phone Number</dt>
+                            <dd class="w-2/3">
+                                <a href="tel:05035031819" class="text-blue-600 hover:text-orange-800">(02) 9283 3583</a>
+                            </dd>
+                        </div>
+                        <div class="flex">
+                            <dt class="w-1/3 font-bold">Email Address</dt>
+                            <dd class="w-2/3">
+                                <a href="mailto:getintouch@ribediyakoi.com" class="text-blue-600 hover:text-orange-800">getintouch@ribediyakoi.com</a>
+                            </dd>
+                        </div>
+                        <div class="flex">
+                            <dt class="w-1/3 font-bold">Address</dt>
+                            <dd class="w-2/3">17 O'Connell Street Sydney NSW 2000</dd>
+                        </div>
+                        <div class="flex">
+                            <dt class="w-1/3 font-bold">Business Hours</dt>
+                            <dd class="w-2/3">
+                                Weekdays<br>
+                                11:00 AM – 2:00 PM (Last Order: 1:30 PM)<br>
+                                5:00 PM – 11:00 PM (Last Order: 10:00 PM)<br>
+                                Weekends & Holidays<br>
+                                11:00 AM – 10:00 PM (Last Order: 9:00 PM)
+                            </dd>
+                        </div>
+                    </dl>
+                    <div class="mt-8">
+                        <h3 class="mb-4 font-bold">Find Us Here</h3>
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.964351868107!2d151.20710991093884!3d-33.864809573116524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae41e65925c3%3A0xd0f1eba3d0b03171!2s17%20O&#39;Connell%20St%2C%20Sydney%20NSW%202000!5e0!3m2!1sen!2sau!4v1736389409195!5m2!1sen!2sau" width="500" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side: 4 Images in 2 Columns and 2 Rows with No Spaces -->
+            <div class="w-full md:w-1/2 grid grid-cols-2 gap-0 h-full flex-grow"> <!-- Added flex-grow here -->
+                <div class="m-0">
+                    <img src="contact-us2.jpg" alt="Image 2" class="w-full h-full object-cover shadow-lg" onclick="openModal(this.src)">
+                </div>
+                <div class="m-0">
+                    <img src="contact-us3.jpg" alt="Image 3" class="w-full h-full object-cover shadow-lg" onclick="openModal(this.src)">
+                </div>
+                <div class="m-0">
+                    <img src="contact-us4.jpg" alt="Image 4" class="w-full h-full object-cover shadow-lg" onclick="openModal(this.src)">
+                </div>
+                <div class="m-0">
+                    <img src="contact-us6.png" alt="Image 6" class="w-full h-full object-cover shadow-lg" onclick="openModal(this.src)">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+    <a href="#top" class="scroll-arrow" title="Back to Top">&#8593;</a>
+
+ 
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.facebook.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.twitter.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.instagram.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <div>© 2024 Ribediya KOI - All Rights Reserved</div>
+    </footer>
+
+
+</body>
+</html>

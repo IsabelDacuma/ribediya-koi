@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ribediya KOI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'fl-icons';
+            src: local('Hiragino Kaku Gothic ProN');
+        }
+                
+    body {
+      
+        font-family: 'fl-icons';
+        display: flex;
+        min-height: 100vh;
+        background-color: #121212;
+        }
+
+
+
+
+
+           /* Sidebar Navigation */
+        .sidebar {
+            width: 200px;
+            background-size: cover; /* Ensures the image covers the sidebar */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 2px solid #ddd;
+            position: fixed;
+            height: 100%;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            top: 0;
+            color: floralwhite; /* Ensures text is visible */
+            z-index: 1; /* Ensures sidebar content is above the overlay */
+        }
+
+
+
+        .sidebar .logo img {
+            width: 150px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: floralwhite;
+            font-size: 16px;
+            writing-mode: horizontal-tb;-rl; /* Vertical text */
+            text-orientation: mixed;
+            margin-left: 10px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: orange;
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+            width: 100%;
+        }
+
+
+
+/* Header Section */
+.header-section {
+    padding: 20px;
+    background-color: #121212; /* Matte black */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    position: relative; /* Ensure header stays above the slider */
+    z-index: 2; /* Ensure it's above the photo slider */
+
+}
+
+/* Header Text */
+.header-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-text {
+    color: floralwhite;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.header-text.english {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.header-text.japanese {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 1.3rem;
+    opacity: 0.9;
+}
+
+
+
+
+/* Background Slider Section */
+.bg-slider {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent images from spilling out */
+}
+
+.bg-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Hide initially */
+    transition: opacity 1s ease-in-out;
+}
+
+.bg-section:first-child {
+    opacity: 1; /* Make the first image visible initially */
+}
+
+/* Slogan Container */
+.slogan-container {
+    text-align: center;
+    margin: 0 20px;
+    position: relative;
+    z-index: 10; /* Ensure the slogan stays above the background images */
+}
+
+/* Slogan Styling */
+.slogan {
+    font-family: 'Roboto', sans-serif;
+    color: floralwhite;
+    font-size: 1.3rem;
+    letter-spacing: 0.1px;
+    display: inline-block;
+    white-space: nowrap;
+    opacity: 1;
+    animation: fadeSlogan 15s ease-in-out infinite;
+}
+
+/* Word Animations */
+.word {
+    display: inline-block;
+    opacity: 0;
+    animation: fadeInOutWords 10s ease-in-out infinite;
+    margin: 0 5px;
+}
+
+@keyframes fadeInOutWords {
+    0%, 100% {
+        opacity: 0;
+    }
+    10%, 90% {
+        opacity: 1;
+    }
+}
+
+/* Animation for the entire slogan */
+@keyframes fadeSlogan {
+    0%, 50%, 100% {
+        opacity: 0;
+    }
+    25%, 75% {
+        opacity: 1;
+    }
+}
+
+
+
+/* Search Bar */
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-bar {
+    padding: 0.5rem;
+    border-radius: 3px;
+    border: 1px solid black;
+    width: 200px;
+    outline: none;
+}
+
+.search-bar:focus {
+    border-color: orange;
+    box-shadow: 0 0 5px orange;
+}
+
+       
+    
+
+       /* Scroll to top button */
+    .scroll-arrow {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #121212;
+      color: floralwhite;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 30px;
+      z-index: 1000;
+    }
+
+    .scroll-arrow:hover {
+      background-color: red ;
+    }
+
+    /* Make sure the body has some space for the button */
+    body {
+      padding-bottom: 60px; /* To ensure the button doesn't get hidden behind the content */
+    }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar ul li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sidebar ul li a {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content h1 {
+                font-size: 20px;
+            }
+
+            .main-content p {
+                font-size: 16px;
+            }
+        }
+
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reservation-form {
+        padding: 1.5rem;
+    }
+}
+
+
+ .grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Mobile-first */
+        gap: 1.5rem;
+    }
+
+    .grid-cols-1 {
+        grid-template-columns: 1fr;
+    }
+
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transition: transform 0.2s ease;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal img {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        color: floralwhite;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+
+/* Styling for Japanese text */
+.jp-text {
+    font-size: 1.4em;
+    color: #999;
+}
+
+
+    .menu-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 10%;
+    margin-top: 50px;
+}
+
+.menu {
+    width: 70%;
+}
+
+.category {
+    margin-bottom: 30px;
+}
+
+.category h2 {
+    color: red;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid red;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.2em;
+    color: #ccc; /* Lighter text for readability on black background */
+}
+
+ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+}
+
+ul li:hover {
+    background-color: #444;
+    transition: 0.3s;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;  /* Arrange images in a vertical column */
+    align-items: center;     /* Center images horizontally within the container */
+    padding: 20px;
+    gap: 20px;               /* Space between images */
+}
+
+.image-placeholder {
+    width: 300px;            /* Fixed width for images */
+    height: 205px;           /* Fixed height for images */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;        /* Ensures images don't overflow the container */
+    border-radius: 8px;      /* Optional rounded corners */
+    background-color: #f0f0f0; /* Light gray background for placeholders */
+}
+
+.image-placeholder img {
+    width: 100%;             /* Makes the image fill the container width */
+    height: 100%;            /* Makes the image fill the container height */
+    object-fit: cover;       /* Ensures the image covers the container without distortion */
+}
+
+
+/* Popup Style */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.popup-content {
+    position: relative;
+    background-color: transparent; /* Remove background */
+    margin: auto;
+    padding: 20px;
+    width: 65%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.popup-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.close-btn {
+    background-color: transparent;
+    color: floralwhite;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Positioning it on the top-right of the image */
+    z-index: 10; /* Ensuring it stays on top of the image */
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .menu {
+        width: 100%;
+    }
+
+    .image-container {
+        width: 100%;
+    }
+}
+/* Header Style for Menu Selections */
+.menu-header {
+    background-color: #111;
+    color: #fff;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    display: flex; /* Use flexbox for the header */
+    justify-content: center; /* Centers all content horizontally */
+    align-items: center;
+    position: relative; /* Position relative to allow absolute positioning of the back button */
+}
+
+/* Header content: align items on the same row */
+.header-content {
+    width: 100%; /* Full width */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* This ensures content is centered horizontally */
+}
+
+/* Title Style */
+.header-title {
+    font-size: 2.5rem;
+    flex-grow: 1; /* Ensures that the title takes up remaining space */
+    text-align: center;
+}
+
+/* Back to Main Button */
+.back-to-main-button {
+    position: absolute; /* Positioning it absolutely */
+    left: 20px; /* Adjust left position */
+    display: inline-flex;
+    align-items: center;
+    color: floralwhite; /* Text color */
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-to-main-button:hover {
+    color: red; /* Hover color */
+}
+
+.fas {
+    margin-right: 8px; /* Space between arrow and text */
+}
+ /* Footer */
+        footer {
+            background-color: #121212; /* Dark background */
+            color: floralwhite; /* Text color */
+            text-align: center; /* Center-align content */
+            padding: 20px; /* Space inside footer */
+            width: 100%; /* Full width */
+            position: relative; /* Position for layout */
+            bottom: 0; /* Align at bottom if necessary */
+        }
+
+        /* Social Links */
+        .social-links {
+            margin-bottom: 10px; /* Spacing below social links */
+        }
+
+        .social-icon {
+            margin: 0 10px; /* Horizontal spacing */
+            color: whitesmoke; /* White color for icons */
+            font-size: 20px; /* Icon size */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .social-icon:hover {
+            color: #orange; /* Change color on hover */
+        }
+
+/* Header Styles */
+.menu-title {
+    padding: 15px;
+    text-align: center; /* Center-aligns the title */
+}
+
+/* Menu Title */
+.menu-title h1 {
+    font-size: 35px; /* Corrected font size unit */
+    font-weight: bold;
+    color: floralwhite; /* Adjust as needed for visibility */
+    margin: 0; /* Remove default margin */
+}
+ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between; /* Space between item and price */
+    align-items: center;
+    margin: 10px 0; /* Adjust spacing between items */
+}
+
+ul li .menu-item {
+    font-weight: normal; /* Set normal font weight for the menu item */
+}
+
+ul li .price {
+    font-weight: bold; /* Make price bold */
+    text-align: right; /* Ensure price aligns to the right */
+    min-width: 70px; /* Ensure price has consistent width */
+}
+
+
+    </style>
+</head>
+<body>
+
+
+    <div id="custom-cursor"></div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo2.png" alt="koi-logo"> <!-- Add your logo image here -->
+        </div>
+        <ul>
+            <li><a href="index.html#our-story">Our Story</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="index.html#Reservation">Reservation</a></li>
+            <li><a href="index.html#contact-us">Contact Us</a></li>
+        </ul>
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+
+        <!-- Header Section -->
+    <header class="header-section">
+    <!-- Company Name -->
+    <div class="header-text-container">
+        <div class="header-text english">RIBEDIYA KOI</div>
+        <div class="header-text japanese">リベディヤコイ</div>
+    </div>
+
+    
+    <!-- Slogan Section -->
+<div class="slogan-container">
+    <div class="slogan">
+        <span class="word">Savor</span>
+        <span class="word">the</span>
+        <span class="word">Spirit</span>
+        <span class="word">of</span>
+        <span class="word">Japan</span>
+        <span class="word">Down</span>
+        <span class="word">Under</span>
+    </div>
+</div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="search" class="search-bar" placeholder="Search...">
+    </div>
+</header>
+
+    
+<!-- Modal for Enlarged Image -->
+<div id="modal" class="modal">
+    <span class="close-btn" onclick="closeModal()">X</span>
+    <img id="modal-img" src="" alt="Enlarged Image">
+</div>
+
+    <!-- Inline JavaScript -->
+<script>
+    // Function to open the modal with the clicked image
+    function openModal(imageSrc) {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        
+        // Set the source of the modal image to the clicked image's source
+        modalImg.src = imageSrc;
+
+        // Show the modal
+        modal.style.display = 'flex';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+
+  const searchBar = document.getElementById('search-bar');
+        const content = document.querySelector('.content');
+
+        // Function to highlight search term
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi'); // Case-insensitive matching
+            return text.replace(regex, '<span class="highlight">$1</span>'); // Highlight matches
+        }
+
+        // Event listener for the search bar
+        searchBar.addEventListener('input', function() {
+            const query = searchBar.value.trim();  // Get the search term
+            const paragraphs = content.querySelectorAll('p'); // Get all paragraphs
+
+            paragraphs.forEach(paragraph => {
+                const originalText = paragraph.textContent;
+                if (query) {
+                    // Highlight matches in the paragraph text
+                    paragraph.innerHTML = highlightText(originalText, query);
+                } else {
+                    // If search is empty, show the original text
+                    paragraph.innerHTML = originalText;
+                }
+            });
+        });
+
+let currentIndex = 0;
+const sections = document.querySelectorAll('.bg-section');
+const totalSections = sections.length;
+
+function changeSlide() {
+    // Set all sections to opacity 0 (hide them)
+    sections.forEach(section => section.style.opacity = 0);
+    
+    // Show the next section (background image)
+    currentIndex = (currentIndex + 1) % totalSections; // Loop back to the first one after the last
+    sections[currentIndex].style.opacity = 1; // Show the next image
+}
+
+// Set the slideshow interval (e.g., 3 seconds)
+setInterval(changeSlide, 3000); // Change slide every 3 seconds
+
+
+</script>
+
+
+
+
+<!-- Pop-up Offer -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <img src="promo.png" alt="Promo Image" class="popup-image">
+        <button onclick="closePopup()" class="close-btn">X</button>
+    </div>
+</div>
+
+
+<!-- Menu Selections Header -->
+<header class="menu-header">
+    <div class="header-content">
+        <!-- Back to Main Link -->
+
+        <a href="index.html" class="back-to-main-button">
+              <i class="fas fa-arrow-left"></i> <!-- Left arrow -->
+            Back to Main
+            
+        </a>
+    </div>
+
+
+</header>
+<!-- Menu Selections Header -->
+<header class="menu-title">
+    <h1>Menu Selection</h1>
+</header>
+
+
+
+    <!-- Menu Section -->
+    <div class="menu-container">
+        <div class="menu">
+
+
+
+              <!-- Banquet Options -->
+            <section class="category">
+                <h2>Banquet Options - 宴会オプション</h2>
+   <ul>
+    <li><span class="menu-item">Chef's Special Banquet (シェフの特選宴会)</span><span class="price">$120.00</span></li>
+    <li><span class="menu-item">Gushi Banquet (寿司宴会)</span><span class="price">$85.00</span></li>
+    <li><span class="menu-item">Tempura Banquet (天ぷら宴会)</span><span class="price">$95.00</span></li>
+    <li><span class="menu-item">Omakase Banquet (お任せ宴会)</span><span class="price">$150.00</span></li>
+</ul>
+
+            </section>
+
+
+            <!-- Appetizers -->
+<section class="category">
+    <h2>Appetizers - 前菜</h2>
+    <ul>
+        <li><span class="menu-item">Edamame (枝豆)</span><span class="price">$6.00</span></li>
+        <li><span class="menu-item">Gyoza (餃子)</span><span class="price">$8.00</span></li>
+        <li><span class="menu-item">Oysters (牡蠣)</span><span class="price">$12.00</span></li>
+        <li><span class="menu-item">Kingfish Tiradito キングフィッシュ・ティラディート </span><span class="price">$18.00</span></li>
+    </ul>
+</section>
+
+<!-- Sushi & Sashimi -->
+<section class="category">
+    <h2>Sushi & Sashimi - 寿司 & 刺身</h2>
+    <ul>
+        <li><span class="menu-item">Salmon Sushi (サーモン寿司)</span><span class="price">$9.00</span></li>
+        <li><span class="menu-item">Tuna Sashimi (マグロ刺身)</span><span class="price">$12.00</span></li>
+        <li><span class="menu-item">Rainbow Roll (レインボーロール)</span><span class="price">$15.00</span></li>
+    </ul>
+</section>
+
+<!-- Ramen Selection -->
+<section class="category">
+    <h2>Ramen - ラーメン</h2>
+    <ul>
+        <li><span class="menu-item">Shoyu Ramen (醤油ラーメン)</span><span class="price">$14.00</span></li>
+        <li><span class="menu-item">Miso Ramen (味噌ラーメン)</span><span class="price">$15.00</span></li>
+        <li><span class="menu-item">Shio Ramen (塩ラーメン)</span><span class="price">$13.00</span></li>
+    </ul>
+</section>
+
+<!-- Main Dishes -->
+<section class="category">
+    <h2>Main Dishes - 主菜</h2>
+    <ul>
+        <li><span class="menu-item">Chicken Teriyaki (照り焼きチキン)</span><span class="price">$25.00</span></li>
+        <li><span class="menu-item">Beef Sukiyaki (牛すき焼き)</span><span class="price">$28.00</span></li>
+        <li><span class="menu-item">Black Cod with Miso (銀だらの西京焼き)</span><span class="price">$23.00</span></li>
+        <li><span class="menu-item">Unagi Don うなぎ丼 </span><span class="price">$25.00</span></li>
+    </ul>
+</section>
+
+<!-- Side Dishes -->
+<section class="category">
+    <h2>Side Dishes - サイドディッシュ</h2>
+    <ul>
+        <li><span class="menu-item">Miso Soup (味噌汁)</span><span class="price">$3.50</span></li>
+        <li><span class="menu-item">Rice (ご飯)</span><span class="price">$2.00</span></li>
+        <li><span class="menu-item">Pickled Vegetables (漬物)</span><span class="price">$4.00</span></li>
+    </ul>
+</section>
+
+<!-- Desserts -->
+<section class="category">
+    <h2>Desserts - デザート</h2>
+    <ul>
+        <li><span class="menu-item">Dango (団子)</span><span class="price">$6.00</span></li>
+        <li><span class="menu-item">Matcha Cake (抹茶ケーキ)</span><span class="price">$7.00</span></li>
+        <li><span class="menu-item">Ice Cream (アイスクリーム)</span><span class="price">$5.00</span></li>
+    </ul>
+</section>
+
+<!-- Drinks -->
+<section class="category">
+    <h2>Drinks - 飲み物</h2>
+    <ul>
+        <li><span class="menu-item">Sake (酒)</span><span class="price">$10.00</span></li>
+        <li><span class="menu-item">Asahi Beer (アサヒビール)</span><span class="price">$7.00</span></li>
+        <li><span class="menu-item">Green Tea (緑茶)</span><span class="price">$3.00</span></li>
+        <li><span class="menu-item">Japanese Whisky (ジャパニーズウィスキー)</span><span class="price">$12.00</span></li>
+    </ul>
+</section>
+
+        </div>
+
+        <!-- Image Section -->
+     <!-- Image Section -->
+<div class="image-container">
+    <div class="image-placeholder">
+        <img src="Banquet.jpeg" alt="Image 1">
+    </div>
+    <div class="image-placeholder">
+        <img src="Appetizer.jpg" alt="Image 2">
+    </div>
+    <div class="image-placeholder">
+        <img src="tiradito.jpg" alt="Image 7">
+    </div>
+     <div class="image-placeholder">
+        <img src="sushi.jpg" alt="Image 3">
+    </div>
+    <div class="image-placeholder">
+        <img src="ramen.png" alt="Image 4">
+    </div>
+    <div class="image-placeholder">
+        <img src="teriyaki.jpg" alt="Image 4">
+    </div>
+    <div class="image-placeholder">
+        <img src="cod.png" alt="Image 5">
+    </div>
+    <div class="image-placeholder">
+        <img src="vegie.png" alt="Image 6">
+    </div>
+    <div class="image-placeholder">
+        <img src="dango.png" alt="Image 7">
+    </div>
+    <div class="image-placeholder">
+        <img src="drinks.png" alt="Image 7">
+    </div>
+</div>
+  </div>
+
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById("popup").style.display = "block";
+            }, 500);
+        };
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.facebook.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.twitter.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.instagram.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <div>© 2024 Ribediya KOI - All Rights Reserved</div>
+    </footer>
+
+
+    <!-- Scroll Arrow -->
+
+    <a href="#top" class="scroll-arrow" title="Back to Top">&#8593;</a> 
+
+
+</body>
+</html>
