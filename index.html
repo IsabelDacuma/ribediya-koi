@@ -551,6 +551,116 @@ input[type="tel"]:focus {
         display: block;
     }
 }
+/* Add these media queries at the bottom of your existing <style> section */
+
+@media (max-width: 768px) {
+    /* Make sidebar collapsible */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 250px; /* Fixed width for mobile */
+        background-color: #121212; /* Match your site's background */
+        z-index: 1000;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Adjust main content */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+        transition: margin-left 0.3s ease;
+    }
+
+    /* When sidebar is active, push content */
+    .main-content.pushed {
+        margin-left: 250px;
+    }
+
+    /* Ensure content doesn't overflow horizontally */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Rest of your mobile styles remain the same */
+    .header-section {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .header-text.english {
+        font-size: 1.5rem;
+    }
+
+    .header-text.japanese {
+        font-size: 1rem;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+    
+    .search-bar {
+        width: 100%;
+    }
+
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #contact-us .flex {
+        flex-direction: column;
+    }
+
+    #contact-us .w-1/2 {
+        width: 100%;
+    }
+
+    #contact-us iframe {
+        width: 100%;
+        height: 300px;
+    }
+}
+
+/* Mobile menu button styles */
+.mobile-menu-button {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: none;
+    border: none;
+    color: whitesmoke;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+    }
+}
+
+/* Add overlay for when sidebar is active */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
 
     </style>
 </head>
@@ -935,6 +1045,48 @@ sidebarLinks.forEach(link => {
             sidebar.classList.remove('active');
         }
     });
+});
+
+// Mobile menu functionality - add before closing body tag
+const mobileMenuButton = document.querySelector('.mobile-menu-button');
+const sidebar = document.querySelector('.sidebar');
+const mainContent = document.querySelector('.main-content');
+
+// Create overlay div
+const overlay = document.createElement('div');
+overlay.className = 'sidebar-overlay';
+document.body.appendChild(overlay);
+
+// Toggle sidebar
+mobileMenuButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+});
+
+// Close sidebar when clicking overlay
+overlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+});
+
+// Close sidebar when clicking links
+const sidebarLinks = document.querySelectorAll('.sidebar a');
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+    });
+});
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+    }
 });
 
 </script>
