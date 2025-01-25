@@ -590,18 +590,20 @@ input[type="tel"]:focus {
 
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const popup = document.getElementById("greetingPopup");
 
-    // Show the popup when the page loads
-    popup.style.display = "flex";
+    // Check if this is the first visit
+    if (!sessionStorage.getItem('firstVisit')) {
+        popup.style.display = "flex";
+        sessionStorage.setItem('firstVisit', 'true');
+    }
 
     // Close the popup when clicking anywhere on the modal
     popup.onclick = () => {
         popup.style.display = "none";
     };
 });
-
 </script>
 
  <button class="mobile-menu-button">☰</button>
